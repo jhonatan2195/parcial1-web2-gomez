@@ -1,0 +1,46 @@
+@base = http://localhost:4000/api
+
+### Salud
+GET http://localhost:4000/health
+
+### L1: Listar libros
+GET {{base}}/libros
+
+### Buscar por autor o título
+GET {{base}}/libros?buscar=GABRIEL
+
+### Disponibles y paginación
+GET {{base}}/libros?disponibles=true&porPagina=2
+
+### Validación porPagina
+GET {{base}}/libros?porPagina=50
+
+### L2: Libro existente
+GET {{base}}/libros/5
+
+### L2: Libro inexistente
+GET {{base}}/libros/999
+
+### L2: ID inválido
+GET {{base}}/libros/abc
+
+### L3: Crear libro
+POST {{base}}/libros
+Content-Type: application/json
+
+{"titulo":"Rayuela","autor":"Julio Cortázar","isbn":"ISBN-006","ejemplares":2,"ejemplaresDisponibles":99}
+
+### P1: Crear préstamo
+POST {{base}}/prestamos
+Content-Type: application/json
+
+{"socioId":1,"libroId":1}
+
+### P2: Devolver préstamo (ajusta ID según respuesta)
+PATCH {{base}}/prestamos/4/devolucion
+
+### P3: Historial activo de Sofía
+GET {{base}}/socios/3/prestamos?estado=ACTIVO
+
+### Ruta inexistente: debe responder JSON 404
+GET {{base}}/no-existe
